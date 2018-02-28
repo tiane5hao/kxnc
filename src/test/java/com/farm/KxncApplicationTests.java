@@ -1,4 +1,4 @@
-package com.lj.kxnc;
+package com.farm;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

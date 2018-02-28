@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://123.207.249.79:3306/farm
+    username: farm
+    password: farm2018
+logging:
+  file: farm.log
+  path: /var/log
+  level: info
+debug: true
+
