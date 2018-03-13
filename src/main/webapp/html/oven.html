@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>烤炉</title>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <style type="text/css">
+        body {background-color:yellow;text-align:center}
+        .oven {background-color:red;margin: 40px;height: 200px;
+            width: 200px;float: left;font-size: 50px; line-height: 200px}
+    </style>
+</head>
+<body>
+    <div class="oven" id="oven1">烤炉一</div>
+    <div class="oven" id="oven2">烤炉二</div>
+    <div class="oven" id="oven3">烤炉三</div>
+    <div class="oven" id="oven4">烤炉四</div>
+    <div class="oven" id="oven5">烤炉五</div>
+    <div class="oven" id="oven6">烤炉六</div>
+    <div class="oven" id="oven7">烤炉七</div>
+    <div class="oven" id="oven8">烤炉八</div>
+    <div class="oven" id="oven9">烤炉九</div>
+
+    <script>
+        $(".oven").click(function () {
+            alert($(this).text());
+            window.location.href="ovendetail.html";
+        });
+    </script>
+</body>
+
+</html>

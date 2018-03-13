@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <style type="text/css">
+        body {background-color:yellow;text-align:center}
+        .left{
+            float: left;
+            margin: 30px;
+            width: 200px;
+            height: 200px;
+        }
+        .block{
+
+            line-height: 200px;
+        }
+        .day{
+            font-size: 40px;
+            background: grey;
+            margin-left: 60px;
+        }
+        .am{
+            font-size: 50px;
+
+            border:solid black 2px;
+        }
+        .pm{
+            font-size: 50px;
+
+            border:solid black 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="block">
+        <div class="day left"></div>
+        <div class="am  left">
+            上午
+        </div>
+        <div class="pm  left">
+            下午
+        </div>
+    </div>
+    <div class="block">
+        <div class="day left"></div>
+        <div class="am left">
+            上午
+        </div>
+        <div class="pm left">
+            下午
+        </div>
+    </div>
+    <div class="block">
+        <div class="day left"></div>
+        <div class="am left">
+            上午
+        </div>
+        <div class="pm left">
+            下午
+        </div>
+    </div>
+    <div class="block">
+        <div class="day left"></div>
+        <div class="am left">
+            上午
+        </div>
+        <div class="pm left">
+            下午
+        </div>
+    </div>
+    <div class="block">
+        <div class="day left"></div>
+        <div class="am left">
+            上午
+        </div>
+        <div class="pm left">
+            下午
+        </div>
+    </div>
+    <div class="block">
+        <div class="day left"></div>
+        <div class="am left">
+            上午
+        </div>
+        <div class="pm left">
+            下午
+        </div>
+    </div>
+    <div class="block">
+        <div class="day left"></div>
+        <div class="am left">
+            上午
+        </div>
+        <div class="pm left">
+            下午
+        </div>
+    </div>
+<script>
+    $(function(){
+        $(".day").each(function (index) {
+            var day = $(this);
+
+            day.text(getnowtime(index))
+        })
+    });
+
+    function getnowtime(index) {
+        var nowtime = new Date();
+        var year = nowtime.getFullYear();
+        var month = padleft0(nowtime.getMonth() + 1);
+        var day = padleft0(nowtime.getDate()+ index) ;
+
+        return year  + month  + day ;
+    }
+
+    function padleft0(obj) {
+        return obj.toString().replace(/^[0-9]{1}$/, "0" + obj);
+    }
+</script>
+</body>
+</html>

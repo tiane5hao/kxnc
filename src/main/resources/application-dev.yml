@@ -1,0 +1,11 @@
+
+spring:
+   profiles: dev
+   datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://123.207.249.79:3306/farm
+    username: farm
+    password: farm2018
+weixin:
+  appid: wxef310c6d87af833e
+  appsecret: a10d7937a2be78d2b6f4dec98c5abdaa
