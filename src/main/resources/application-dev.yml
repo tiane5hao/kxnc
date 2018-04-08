@@ -6,6 +6,21 @@ spring:
     url: jdbc:mysql://123.207.249.79:3306/farm
     username: farm
     password: farm2018
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
 weixin:
   appid: wxef310c6d87af833e
   appsecret: a10d7937a2be78d2b6f4dec98c5abdaa

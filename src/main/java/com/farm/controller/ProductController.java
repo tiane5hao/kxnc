@@ -6,23 +6,28 @@ import com.farm.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class ProductController {
 
     @Autowired
     ProductService productService;
 
-    @RequestMapping("/product/addOrUpdateProduct")
+    @RequestMapping(value = "/product/addOrUpdateProduct", method = RequestMethod.POST)
+    @ResponseBody
     public MessageResult addProduct(ProductInfoVO productInfoVO){
         return productService.addOrUpdateProduct(productInfoVO);
     }
 
-    @RequestMapping("/product/productList")
-    public List<ProductInfoVO> productList(ProductInfoVO productInfoVO){
-        return productService.productList(productInfoVO);
+    @RequestMapping(value = "/product/productList", method = RequestMethod.GET)
+    @ResponseBody
+    public List<ProductInfoVO> productList(){
+        return productService.productList();
     }
 
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ public class UserController extends BaseController{
     UserService userService;
 
     @RequestMapping("/user/getCode")
+    @ResponseBody
     public void ReGuserServiceetOpenId(HttpServletRequest request, HttpServletResponse response){
         String openId = (String)request.getSession().getAttribute("openId");
         if(openId != null){
@@ -41,6 +43,7 @@ public class UserController extends BaseController{
     }
 
     @RequestMapping("/user/createOpenId")
+    @ResponseBody
     public void createOpenId(HttpServletRequest request, HttpServletResponse response){
         logger.info("createOpenId req:" + JsonUtil.getJsonString(request));
         String code = request.getParameter("code");
