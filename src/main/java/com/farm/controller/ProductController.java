@@ -20,7 +20,7 @@ public class ProductController {
 
     @RequestMapping(value = "/product/addOrUpdateProduct", method = RequestMethod.POST)
     @ResponseBody
-    public MessageResult addProduct(ProductInfoVO productInfoVO){
+    public MessageResult addOrUpdateProduct(ProductInfoVO productInfoVO){
         return productService.addOrUpdateProduct(productInfoVO);
     }
 

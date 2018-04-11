@@ -10,6 +10,26 @@ public class ProductInfoVO {
 
     private Integer status;
 
+    private Integer number;
+
+    private String orderId;
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
     public String getProductId() {
         return productId;
     }

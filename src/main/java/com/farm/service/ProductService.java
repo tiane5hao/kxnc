@@ -33,4 +33,17 @@ public class ProductService {
     public List<ProductInfoVO> productList() {
         return new ArrayList<>();
     }
+
+    public double calculateOrderPrice(List<ProductInfoVO> list){
+        double allPrice = 0.0;
+        for(ProductInfoVO productInfoVO : list){
+            double price = mapper.queryProductPrice(productInfoVO);
+            allPrice += price * productInfoVO.getNumber();
+        }
+        return allPrice;
+    }
+
+    public List<ProductInfoVO> productListByOrderId(String orderId) {
+        return mapper.findProductListByOrderId(orderId);
+    }
 }
