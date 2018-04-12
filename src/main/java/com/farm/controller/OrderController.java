@@ -76,7 +76,7 @@ public class OrderController extends BaseController{
 
         MessageResult messageResult = new MessageResult();
         try {
-            List<OrderInfo> list = orderService.findOrderList(page, param);
+            List<OrderInfo> list = orderService.findOrderListByAdmin(page, param);
             messageResult.setData(list);
             return messageResult;
         }catch (Exception e){

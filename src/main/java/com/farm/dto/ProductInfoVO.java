@@ -10,9 +10,19 @@ public class ProductInfoVO {
 
     private Integer status;
 
+    private Integer classifyId;
+
     private Integer number;
 
     private String orderId;
+
+    public Integer getClassifyId() {
+        return classifyId;
+    }
+
+    public void setClassifyId(Integer classifyId) {
+        this.classifyId = classifyId;
+    }
 
     public String getOrderId() {
         return orderId;

@@ -1,6 +1,7 @@
 package com.farm.service;
 
 import com.farm.common.MessageResult;
+import com.farm.dto.Page;
 import com.farm.dto.ProductInfoVO;
 import com.farm.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,9 @@ public class ProductService {
         return messageResult;
     }
 
-    public List<ProductInfoVO> productList() {
-        return new ArrayList<>();
+    public List<ProductInfoVO> productList(Page page) {
+        page.initStart();
+        return mapper.productList(page);
     }
 
     public double calculateOrderPrice(List<ProductInfoVO> list){

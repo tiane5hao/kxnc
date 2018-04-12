@@ -32,6 +32,6 @@ public interface OrderMapper {
 
     @Select("select order_id as orderId, price,addressee, phone, status, create_time as createTime" +
             "from order where status=#{param.status} limit #{page.start}, #{page.pageSize}")
-    List<OrderInfo> findOrderList(@Param("page") Page page, @Param("param")OrderQueryParam param);
+    List<OrderInfo> findOrderListByAdmin(@Param("page") Page page, @Param("param")OrderQueryParam param);
 
 }

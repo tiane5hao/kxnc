@@ -10,10 +10,10 @@
     <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
 </head>
 <body>
-<h1>商品列表</h1>
-<p>Fill the form and submit it.</p>
+<h1>商品添加修改</h1>
+
 <div style="margin:20px 0;"></div>
-<div class="easyui-panel" title="New Topic" style="width:400px">
+<div class="easyui-panel" title="商品添加修改" style="width:400px">
     <div style="padding:10px 60px 20px 60px">
         <form id="ff" method="post" action="/product/addOrUpdateProduct">
             <table cellpadding="5">
@@ -24,13 +24,22 @@
                 </tr>
                 <tr>
                     <td>产品价格:</td>
-                    <td><input class="easyui-textbox" type="text" name="price" data-options="required:true,validType:'email'"></input></td>
+                    <td><input class="easyui-textbox" type="text" name="price" data-options="required:true"></input></td>
                 </tr>
                 <tr>
                     <td>产品图片:</td>
                     <td><input class="easyui-textbox" type="text" name="productUrl" data-options="required:true"></input></td>
                 </tr>
-
+                <tr>
+                    <td>产品分类:</td>
+                    <td>
+                        <select class="webui-combobox" id="order-back-certType" data-options="editable:false" style="width:142px;height: 28px;">
+                            <option value="1">鸡鸭</option>
+                            <option value="2">蛋</option>
+                            <option value="3">青菜</option>
+                        </select>
+                    </td>
+                </tr>
             </table>
         </form>
         <div style="text-align:center;padding:5px">
@@ -42,9 +51,7 @@
     function submitForm(){
         $('#ff').form('submit');
     }
-    function clearForm(){
-        $('#ff').form('clear');
-    }
+
 </script>
 </body>
 </html>

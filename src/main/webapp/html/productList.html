@@ -6,53 +6,145 @@
     <link rel="stylesheet" type="text/css" href="../css/easyui.css">
     <link rel="stylesheet" type="text/css" href="../css/icon.css">
     <link rel="stylesheet" type="text/css" href="../css/demo.css">
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+
 </head>
 <body>
 <h1>商品列表</h1>
-<p>Fill the form and submit it.</p>
+
 <div style="margin:20px 0;"></div>
-<div class="easyui-panel" title="New Topic" style="width:400px">
+
+<table id="tt" style="width: 700px;" title="商品列表" iconcls="icon-edit">
+
+</table>
+
+<p>----------------------------------------</p>
+<h1>商品新增修改</h1>
+<div class="easyui-panel" title="商品添加修改" style="width:400px">
     <div style="padding:10px 60px 20px 60px">
-        <form id="ff" method="post">
+        <form id="productform" method="post" action="/product/addOrUpdateProduct">
             <table cellpadding="5">
+                <input hidden name="productId">
                 <tr>
                     <td>产品名称:</td>
-                    <td><input class="easyui-textbox" type="text" name="name" data-options="required:true"></input></td>
+                    <td><input class="easyui-textbox" type="text" name="productName" data-options="required:true"></input></td>
                 </tr>
                 <tr>
                     <td>产品价格:</td>
-                    <td><input class="easyui-textbox" type="text" name="email" data-options="required:true,validType:'email'"></input></td>
+                    <td><input class="easyui-textbox" type="text" name="price" data-options="required:true"></input></td>
                 </tr>
                 <tr>
                     <td>产品图片:</td>
-                    <td><input class="easyui-textbox" type="text" name="subject" data-options="required:true"></input></td>
+                    <td><input class="easyui-textbox" type="text" name="productUrl" data-options="required:true"></input></td>
                 </tr>
                 <tr>
-                    <td>Message:</td>
-                    <td><input class="easyui-textbox" name="message" data-options="multiline:true" style="height:60px"></input></td>
-                </tr>
-                <tr>
-                    <td>Language:</td>
+                    <td>产品分类:</td>
                     <td>
-                        <select class="easyui-combobox" name="language"><option value="ar">Arabic</option><option value="bg">Bulgarian</option><option value="ca">Catalan</option><option value="zh-cht">Chinese Traditional</option><option value="cs">Czech</option><option value="da">Danish</option><option value="nl">Dutch</option><option value="en" selected="selected">English</option><option value="et">Estonian</option><option value="fi">Finnish</option><option value="fr">French</option><option value="de">German</option><option value="el">Greek</option><option value="ht">Haitian Creole</option><option value="he">Hebrew</option><option value="hi">Hindi</option><option value="mww">Hmong Daw</option><option value="hu">Hungarian</option><option value="id">Indonesian</option><option value="it">Italian</option><option value="ja">Japanese</option><option value="ko">Korean</option><option value="lv">Latvian</option><option value="lt">Lithuanian</option><option value="no">Norwegian</option><option value="fa">Persian</option><option value="pl">Polish</option><option value="pt">Portuguese</option><option value="ro">Romanian</option><option value="ru">Russian</option><option value="sk">Slovak</option><option value="sl">Slovenian</option><option value="es">Spanish</option><option value="sv">Swedish</option><option value="th">Thai</option><option value="tr">Turkish</option><option value="uk">Ukrainian</option><option value="vi">Vietnamese</option></select>
+                        <select class="webui-combobox" id="classify-order-back-certType" data-options="editable:false" style="width:142px;height: 28px;">
+                            <option value="1">鸡鸭</option>
+                            <option value="2">蛋</option>
+                            <option value="3">青菜</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>上下架:</td>
+                    <td>
+                        <select class="webui-combobox" id="status-order-back-certType" data-options="editable:false" style="width:142px;height: 28px;">
+                            <option value="1">上架</option>
+                            <option value="2">下架</option>
+                        </select>
                     </td>
                 </tr>
             </table>
         </form>
         <div style="text-align:center;padding:5px">
-            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">Submit</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">Clear</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
 <script>
-    function submitForm(){
-        $('#ff').form('submit');
+    $(function () {
+        loadData();
+    });
+    //参数pars(Json格式)可以当做额外参数(搜索条件)传递到服务端。
+    function loadData(pars) {
+        $('#tt').datagrid({   //#tt是展示数据的表格ID
+            url: '/admin/product/productList',   //MVC路由，可以不是MVC格式
+            title: '产品列表',
+            width: 700,
+            height: 400,
+            fitColumns: true, //列自适应
+            nowrap: false,
+            idField: 'ID',//主键列的列名
+            loadMsg: '正在加载产品的信息...',
+            pagination: true,//是否有分页
+            singleSelect: false,//是否单行选择
+            pageSize: 10,//页大小，一页多少条数据
+            pageNumber: 1,//当前页，默认的
+            pageList: [ 5, 10,15],   //可以设置的页大小的列表
+            queryParams: pars,  //往后台额外传递的参数，(搜索条件)(Json格式)
+            columns: [[//c.UserName, c.UserPass, c.Email, c.RegTime
+                { field: 'ck', checkbox: true, align: 'left', width: 50 },  //额外添加的checkBox的列
+                { field: 'productId', title: '产品编号', width: 80 },    //field属性必须和UserInfo的属性名对应。
+                { field: 'productName', title: '产品名称', width: 120 },
+                { field: 'price', title: '产品价格', width: 120 },
+                { field: 'classifyId', title: '分类', width: 120 ,
+                    formatter:function(value,row,index){
+                        if(value==1){return '鸡'}
+                        else if(value==2){return '鸭'}
+                        else if(value==2){return '蛋'}
+                        else if(value==2){return '肉'}
+                        else if(value==2){return '蔬菜'}
+                        else if(value==2){return '鸭'}
+
+                    }
+                },
+                { field: 'status', title: '状态', width: 120 ,
+                    formatter:function(value,row,index){
+                        if(value==1){return '上架'}
+                        else if(value==2){return '下架'}
+                    }
+                },
+                { field: 'opt', title: '操作', width: 120 ,
+                    formatter:function(value,row,index){
+                        var str = '<span ><a class="easyui-linkbutton"  href="javascript:update(\'' + row.productId +'\');"  title="修改"></a></span>';
+                        return str;
+                    }
+                }
+            ]],
+            toolbar: [ {
+                id: 'btnEdit',
+                text: '编辑',
+                iconCls: 'icon-edit',
+                handler: function () {
+                    showEditInfo();
+                }
+            }]
+        });
     }
-    function clearForm(){
-        $('#ff').form('clear');
+
+    function update() {
+        var row = grid.datagrid('getSelected');
+        $('#productform').form('clear');
+
+        if (row){
+            win.window('open');
+            alert("row内容"+row);
+            $('#productform').form('load', row);
+            form.url = 'UserlistAction!update.action';
+        } else {
+            $.messager.show({
+                title:'警告',
+                msg:'请先选择用户资料。'
+            });
+        }
+    }
+
+    function submitForm(){
+        $('#productform').form('submit');
     }
 </script>
 </body>

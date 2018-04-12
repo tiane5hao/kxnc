@@ -1,5 +1,6 @@
 package com.farm.mapper;
 
+import com.farm.dto.Page;
 import com.farm.dto.ProductInfoVO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -21,4 +22,8 @@ public interface ProductMapper {
             "from product p , order_product op where p.product_id = op.product_id" +
             "and op.order_id = #{orderId}")
     List<ProductInfoVO> findProductListByOrderId(String orderId);
+
+    @Select("select product_id as productId,product_name as productName,status," +
+            " price, image,classify_id as classifyId from product limit #{start},#{rows}")
+    List<ProductInfoVO> productList(Page page);
 }

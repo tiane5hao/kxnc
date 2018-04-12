@@ -48,8 +48,8 @@ public class OrderService {
     }
 
 
-    public List<OrderInfo> findOrderList(Page page, OrderQueryParam param) {
-        List<OrderInfo> orderList = orderMapper.findOrderList(page, param);
+    public List<OrderInfo> findOrderListByAdmin(Page page, OrderQueryParam param) {
+        List<OrderInfo> orderList = orderMapper.findOrderListByAdmin(page, param);
         for(OrderInfo orderInfo : orderList){
             List<ProductInfoVO> productInfoVOList = productService.productListByOrderId(orderInfo.getOrderId());
             orderInfo.setList(productInfoVOList);

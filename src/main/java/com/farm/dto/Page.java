@@ -6,9 +6,9 @@ public class Page implements Serializable{
 
     private Integer start;
 
-    private Integer pageSize;
+    private Integer rows;
 
-    private Integer curPage;
+    private Integer page;
 
     private Integer pageCount;
 
@@ -28,19 +28,23 @@ public class Page implements Serializable{
         this.start = start;
     }
 
-    public Integer getPageSize() {
-        return pageSize;
+    public Integer getRows() {
+        return rows;
     }
 
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
+    public void setRows(Integer rows) {
+        this.rows = rows;
     }
 
-    public Integer getCurPage() {
-        return curPage;
+    public Integer getPage() {
+        return page;
     }
 
-    public void setCurPage(Integer curPage) {
-        this.curPage = curPage;
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public void initStart(){
+        this.start = (this.page - 1) * this.rows;
     }
 }
