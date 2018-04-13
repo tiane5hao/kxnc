@@ -4,9 +4,11 @@ import com.farm.dto.Page;
 import com.farm.dto.ProductInfoVO;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface ProductMapper {
@@ -26,4 +28,10 @@ public interface ProductMapper {
     @Select("select product_id as productId,product_name as productName,status," +
             " price, image,classify_id as classifyId from product limit #{start},#{rows}")
     List<ProductInfoVO> productList(Page page);
+
+    @Update("UPDATE `farm`.`product` SET  `product_name`=#{productName}, `price`=#{price}, `image`=#{image}, `classify_id`=#{classifyId}, `status`=#{status} WHERE product_id=#{productId};" )
+    void updateProduct(ProductInfoVO productInfoVO);
+
+    @Select("select count(1) from product")
+    int productCount(Map<String, String> param);
 }

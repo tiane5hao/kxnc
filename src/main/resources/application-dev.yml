@@ -3,7 +3,7 @@ spring:
    profiles: dev
    datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://123.207.249.79:3306/farm
+    url: jdbc:mysql://123.207.249.79:3306/farm?useUnicode=true&amp;characterEncoding=UTF-8
     username: farm
     password: farm2018
     # 使用druid数据源

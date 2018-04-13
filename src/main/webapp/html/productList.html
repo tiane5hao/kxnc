@@ -3,74 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <title>产品列表</title>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/easyui.css">
     <link rel="stylesheet" type="text/css" href="../css/icon.css">
     <link rel="stylesheet" type="text/css" href="../css/demo.css">
-
 </head>
 <body>
-<h1>商品列表</h1>
 
 <div style="margin:20px 0;"></div>
 
-<table id="tt" style="width: 700px;" title="商品列表" iconcls="icon-edit">
+<div style="display:inline-flex">
+    <div>
+        <h1>商品列表</h1>
+        <table id="tt" style="width: 700px;overflow:hidden;" title="商品列表" iconcls="icon-edit"
+               rownumbers="true" pagination="true" >
 
-</table>
+        </table>
+    </div>
 
-<p>----------------------------------------</p>
-<h1>商品新增修改</h1>
-<div class="easyui-panel" title="商品添加修改" style="width:400px">
-    <div style="padding:10px 60px 20px 60px">
-        <form id="productform" method="post" action="/product/addOrUpdateProduct">
-            <table cellpadding="5">
-                <input hidden name="productId">
-                <tr>
-                    <td>产品名称:</td>
-                    <td><input class="easyui-textbox" type="text" name="productName" data-options="required:true"></input></td>
-                </tr>
-                <tr>
-                    <td>产品价格:</td>
-                    <td><input class="easyui-textbox" type="text" name="price" data-options="required:true"></input></td>
-                </tr>
-                <tr>
-                    <td>产品图片:</td>
-                    <td><input class="easyui-textbox" type="text" name="productUrl" data-options="required:true"></input></td>
-                </tr>
-                <tr>
-                    <td>产品分类:</td>
-                    <td>
-                        <select class="webui-combobox" id="classify-order-back-certType" data-options="editable:false" style="width:142px;height: 28px;">
-                            <option value="1">鸡鸭</option>
-                            <option value="2">蛋</option>
-                            <option value="3">青菜</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>上下架:</td>
-                    <td>
-                        <select class="webui-combobox" id="status-order-back-certType" data-options="editable:false" style="width:142px;height: 28px;">
-                            <option value="1">上架</option>
-                            <option value="2">下架</option>
-                        </select>
-                    </td>
-                </tr>
-            </table>
-        </form>
-        <div style="text-align:center;padding:5px">
-            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
+    <div style="margin-left:10px;">
+        <h1>商品新增修改</h1>
+        <div class="easyui-panel" title="商品添加修改" style="width:400px">
+            <div style="padding:10px 60px 20px 60px">
+                <form id="productform" method="post" action="/admin/product/addOrUpdateProduct">
+                    <table cellpadding="5">
+                        <tr>
+                            <td>产品编号:</td>
+                            <td><input class="easyui-textbox" type="text" name="productId" data-options="required:false" editable="false"></input></td>
+                        </tr>
+                        <tr>
+                            <td>产品名称:</td>
+                            <td><input class="easyui-textbox" type="text" name="productName" data-options="required:true"></input></td>
+                        </tr>
+                        <tr>
+                            <td>产品价格:</td>
+                            <td><input class="easyui-textbox" type="text" name="price" data-options="required:true"></input></td>
+                        </tr>
+                        <tr>
+                            <td>产品图片:</td>
+                            <td><input class="easyui-textbox" type="text" name="image" data-options="required:true"></input></td>
+                        </tr>
+                        <tr>
+                            <td>产品分类:</td>
+                            <td>
+                                <select class="webui-combobox" name="classifyId" id="classify-order-back-certType" data-options="editable:false;required:true" style="width:142px;height: 28px;">
+                                    <option value="1">鸡鸭</option>
+                                    <option value="2">蛋</option>
+                                    <option value="3">青菜</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>上下架:</td>
+                            <td>
+                                <select class="webui-combobox" name="status" id="status-order-back-certType" data-options="editable:false;required:true" style="width:142px;height: 28px;">
+                                    <option value="1">上架</option>
+                                    <option value="2">下架</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <div style="text-align:center;padding:5px">
+                    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">清空</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">提交</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<script type="text/javascript" src="../js/jquery.min.js"></script>
-<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+
 <script>
-    $(function () {
-        loadData();
-    });
+$(function () {
+        var par = {"aa":1};
+
+        loadData(10,1,par);
+
+});
     //参数pars(Json格式)可以当做额外参数(搜索条件)传递到服务端。
-    function loadData(pars) {
+    function loadData(pageSize,pageNumber, pars) {
         $('#tt').datagrid({   //#tt是展示数据的表格ID
             url: '/admin/product/productList',   //MVC路由，可以不是MVC格式
             title: '产品列表',
@@ -81,24 +94,34 @@
             idField: 'ID',//主键列的列名
             loadMsg: '正在加载产品的信息...',
             pagination: true,//是否有分页
-            singleSelect: false,//是否单行选择
-            pageSize: 10,//页大小，一页多少条数据
-            pageNumber: 1,//当前页，默认的
+            rownumbers : true,//行数
+            singleSelect: true,//是否单行选择
+            pageSize: pageSize,//页大小，一页多少条数据
+            pageNumber: pageNumber,//当前页，默认的
+            loadFilter: pagerFilter,
             pageList: [ 5, 10,15],   //可以设置的页大小的列表
             queryParams: pars,  //往后台额外传递的参数，(搜索条件)(Json格式)
+            scrollbarSize:0,
+
             columns: [[//c.UserName, c.UserPass, c.Email, c.RegTime
-                { field: 'ck', checkbox: true, align: 'left', width: 50 },  //额外添加的checkBox的列
                 { field: 'productId', title: '产品编号', width: 80 },    //field属性必须和UserInfo的属性名对应。
                 { field: 'productName', title: '产品名称', width: 120 },
                 { field: 'price', title: '产品价格', width: 120 },
+                { field: 'image', title: '图片', width: 220,align:'center',
+                    formatter:function(value,row,index){
+                        if(row.image){
+                            return "<img style='width:100px;height:60px;' border='1' src='"+row.image+"'/>";
+                        }
+                    }
+                },
                 { field: 'classifyId', title: '分类', width: 120 ,
                     formatter:function(value,row,index){
                         if(value==1){return '鸡'}
                         else if(value==2){return '鸭'}
-                        else if(value==2){return '蛋'}
-                        else if(value==2){return '肉'}
-                        else if(value==2){return '蔬菜'}
-                        else if(value==2){return '鸭'}
+                        else if(value==3){return '蛋'}
+                        else if(value==4){return '肉'}
+                        else if(value==5){return '蔬菜'}
+                        else if(value==6){return '鸭'}
 
                     }
                 },
@@ -107,45 +130,80 @@
                         if(value==1){return '上架'}
                         else if(value==2){return '下架'}
                     }
-                },
-                { field: 'opt', title: '操作', width: 120 ,
-                    formatter:function(value,row,index){
-                        var str = '<span ><a class="easyui-linkbutton"  href="javascript:update(\'' + row.productId +'\');"  title="修改"></a></span>';
-                        return str;
-                    }
                 }
             ]],
-            toolbar: [ {
-                id: 'btnEdit',
-                text: '编辑',
-                iconCls: 'icon-edit',
-                handler: function () {
-                    showEditInfo();
+
+            onClickRow : function(index, row){
+                //你要写的逻辑
+                var row = $('#tt').datagrid('getSelected');
+                $('#productform').form('clear');
+
+                if (row){
+                    $('#productform').form('load', row);
                 }
-            }]
+            }
+        });
+        $("#tt").datagrid('getPager').pagination({
+            onBeforeRefresh:function(){
+                alert('before refresh');
+            },
+            onSelectPage: function (pageNumber, pageSize) {
+                alert('pageNumber:' + pageNumber + ',pageSize:' + pageSize);
+                loadData(pageSize,pageNumber,par)
+            }
         });
     }
 
-    function update() {
-        var row = grid.datagrid('getSelected');
-        $('#productform').form('clear');
 
-        if (row){
-            win.window('open');
-            alert("row内容"+row);
-            $('#productform').form('load', row);
-            form.url = 'UserlistAction!update.action';
-        } else {
-            $.messager.show({
-                title:'警告',
-                msg:'请先选择用户资料。'
-            });
-        }
-    }
+
 
     function submitForm(){
         $('#productform').form('submit');
+        window.setTimeout(function(){ $( '#tt').datagrid( 'reload');},500);
+
     }
+
+    function clearForm() {
+        $('#productform').form('clear');
+    }
+
+    //分页功能
+    function pagerFilter(data) {
+        if (typeof data.length == 'number' && typeof data.splice == 'function') {
+            data = {
+                total: data.length,
+                rows: data
+            }
+        }
+        var dg = $(this);
+        var opts = dg.datagrid('options');
+        var pager = dg.datagrid('getPager');
+        pager.pagination({
+            onSelectPage: function (pageNum, pageSize) {
+                opts.pageNumber = pageNum;
+                opts.pageSize = pageSize;
+                pager.pagination('refresh', {
+                    pageNumber: pageNum,
+                    pageSize: pageSize
+                });
+                dg.datagrid('loadData', data);
+            }
+        });
+        if (!data.originalRows) {
+            if(data.rows)
+                data.originalRows = (data.rows);
+            else if(data.data && data.data.rows)
+                data.originalRows = (data.data.rows);
+            else
+                data.originalRows = [];
+        }
+        var start = (opts.pageNumber - 1) * parseInt(opts.pageSize);
+        var end = start + parseInt(opts.pageSize);
+        data.rows = (data.originalRows.slice(start, end));
+        return data;
+    }
+
+
 </script>
 </body>
 </html>

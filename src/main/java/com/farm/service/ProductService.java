@@ -10,6 +10,8 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class ProductService {
@@ -21,9 +23,12 @@ public class ProductService {
         MessageResult messageResult = new MessageResult();
         try {
             if(StringUtils.isEmpty(productInfoVO.getProductId())){
-//                mapper.addProduct(productInfoVO);
+                String productId = UUID.randomUUID().toString().replace("-","");
+                productInfoVO.setProductId(productId);
+                mapper.addProduct(productInfoVO);
             }else {
-//                mapper.update
+
+                mapper.updateProduct(productInfoVO);
             }
         }catch (Exception e){
             messageResult.setError();
@@ -47,5 +52,9 @@ public class ProductService {
 
     public List<ProductInfoVO> productListByOrderId(String orderId) {
         return mapper.findProductListByOrderId(orderId);
+    }
+
+    public int productCount(Map<String, String> param) {
+       return mapper.productCount(param);
     }
 }
